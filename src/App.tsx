@@ -19,7 +19,7 @@ function App() {
   }, []);
 
   return (
-    <main className="max-w-screen-md mx-auto">
+    <main className="max-w-(--breakpoint-md) mx-auto">
       <section className="p-4">
         {page?.title ? (
           <h1
@@ -52,7 +52,7 @@ function App() {
         ) : null}
 
         <div
-          className={`space-y-8 max-w-screen-sm mt-4 ${
+          className={`space-y-8 max-w-(--breakpoint-sm) mt-4 ${
             !page?.blocks || page.blocks.length === 0
               ? VB_EmptyBlockParentClass
               : ""
