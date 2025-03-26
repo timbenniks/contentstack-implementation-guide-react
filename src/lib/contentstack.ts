@@ -1,16 +1,20 @@
-import contentstack, { Region, QueryOperation } from "@contentstack/delivery-sdk"
+import contentstack, { QueryOperation } from "@contentstack/delivery-sdk"
 import ContentstackLivePreview, { IStackSdk } from "@contentstack/live-preview-utils";
 import { Page } from "./types";
+import { getContentstackEndpoints, getRegionForString } from "@timbenniks/contentstack-endpoints";
+
+const region = getRegionForString(import.meta.env.VITE_CONTENTSTACK_REGION as string);
+const endpoints = getContentstackEndpoints(region, true)
 
 export const stack = contentstack.stack({
   apiKey: import.meta.env.VITE_CONTENTSTACK_API_KEY as string,
   deliveryToken: import.meta.env.VITE_CONTENTSTACK_DELIVERY_TOKEN as string,
   environment: import.meta.env.VITE_CONTENTSTACK_ENVIRONMENT as string,
-  region: import.meta.env.VITE_CONTENTSTACK_REGION === 'EU' ? Region.EU : Region.US,
+  region,
   live_preview: {
     enable: import.meta.env.VITE_CONTENTSTACK_PREVIEW === 'true',
     preview_token: import.meta.env.VITE_CONTENTSTACK_PREVIEW_TOKEN,
-    host: import.meta.env.VITE_CONTENTSTACK_REGION === 'EU' ? "eu-rest-preview.contentstack.com" : "rest-preview.contentstack.com",
+    host: endpoints.preview
   }
 });
 
@@ -25,13 +29,11 @@ export function initLivePreview() {
       environment: import.meta.env.VITE_CONTENTSTACK_ENVIRONMENT as string,
     },
     clientUrlParams: {
-      host:
-        import.meta.env.VITE_CONTENTSTACK_REGION === "EU"
-          ? "eu-app.contentstack.com"
-          : "app.contentstack.com",
+      host: endpoints.application
     },
     editButton: {
       enable: true,
+      exclude: ["outsideLivePreviewPortal"]
     },
   });
 }
