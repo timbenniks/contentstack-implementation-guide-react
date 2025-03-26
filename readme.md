@@ -19,6 +19,12 @@ Follow the following steps to seed a Stack that this codebase understands.
 npm install -g @contentstack/cli
 ```
 
+or use
+
+```bash
+npx @contentstack/cli
+```
+
 ### Log in via the CLI
 
 ```bash
@@ -41,7 +47,7 @@ csdx cm:stacks:seed --repo "timbenniks/contentstack-implementation-guides-seed" 
 
 Go to Settings > Tokens and create a delivery token. Select the `preview` scope and turn on `Create preview token`
 
-> In the case of React, check the settings in the environment and make sure the url is: `http://localhost:5173/` instead of `http://localhost:3000/`
+> In the case of React with vite, check the settings in the environment and make sure the url is: `http://localhost:5173/` instead of `http://localhost:3000/`
 
 ### Fill out your .env file.
 
